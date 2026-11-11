@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <title>صفحة اختبار كابشن فويس - CaptionVoice Test Player</title>
+  <style>
+    body {
+      font-family: 'Segoe UI', Tahoma, Arial, sans-serif;
+      margin: 40px auto;
+      max-width: 800px;
+      padding: 0 20px;
+      line-height: 1.6;
+      background: #f8fafc;
+      color: #0f172a;
+    }
+    .card {
+      background: #ffffff;
+      border: 1px solid #e2e8f0;
+      border-radius: 12px;
+      padding: 24px;
+      margin-bottom: 24px;
+      box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
+    }
+    h1 { color: #0284c7; margin-bottom: 8px; }
+    .video-container {
+      position: relative;
+      background: #000;
+      border-radius: 8px;
+      overflow: hidden;
+      margin: 16px 0;
+      min-height: 360px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      color: #fff;
+    }
+    video { width: 100%; max-height: 400px; }
+    .dom-caption-overlay {
+      position: absolute;
+      bottom: 40px;
+      left: 50%;
+      transform: translateX(-50%);
+      background: rgba(0, 0, 0, 0.75);
+      color: #ffffff;
+      padding: 8px 16px;
+      border-radius: 6px;
+      font-size: 18px;
+      font-weight: bold;
+      text-align: center;
+      pointer-events: none;
+      min-width: 200px;
+    }
+    .btn-row {
+      display: flex;
+      gap: 12px;
+      margin-top: 16px;
+      flex-wrap: wrap;
+    }
+    button {
+      padding: 10px 16px;
+      border-radius: 6px;
+      border: none;
+      background: #0284c7;
+      color: #fff;
+      font-weight: bold;
+      cursor: pointer;
+    }
+    button:hover { background: #0369a1; }
+    .guide { background: #eff6ff; border-left: 4px solid #0284c7; padding: 12px 16px; margin: 16px 0; border-radius: 4px; }
+  </style>
+</head>
+<body>
+  <div class="card">
+    <h1>اختبار إضافة CaptionVoice 🎙️</h1>
+    <p>هذه الصفحة تحاكي مشغل فيديو تعليمي (مثل IBM SkillsBuild) مع ترجمة عربية مغلقة (Closed Captions).</p>
+
+    <div class="guide">
+      <strong>خطوات الاختبار:</strong>
+      <ol>
+        <li>تأكد من تثبيت إضافة CaptionVoice في متصفح Microsoft Edge.</li>
+        <li>انقر على أيقونة الإضافة في شريط الأدوات وفعّل "تفعيل قراءة الترجمة".</li>
+        <li>شغّل الفيديو أدناه أو اضغط على أزرار "محاكاة ترجمة عربية".</li>
+        <li>ستستمع مباشرة إلى قراءة الترجمة بصوت عربي طبيعي.</li>
+      </ol>
+    </div>
+
+    <div class="video-container" id="videoBox">
+      <video id="testVideo" controls crossorigin="anonymous" src="https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4">
+        <!-- TextTrack embedded -->
+      </video>
+
+      <!-- Simulated Video.js caption overlay -->
+      <div id="mockCaption" class="vjs-text-track-cue dom-caption-overlay">
+        مرحباً بكم في الدورة التدريبية لـ IBM SkillsBuild
+      </div>
+    </div>
+
+    <div class="btn-row">
+      <button id="btnCue1">محاكاة سطر ترجمة 1</button>
+      <button id="btnCue2">محاكاة سطر ترجمة 2</button>
+      <button id="btnCue3">محاكاة سطر ترجمة 3</button>
+      <button id="btnToggleVideo" style="background: #475569;">تشغيل / إيقاف مؤقت</button>
+    </div>
+  </div>
+
+  <script>
+    const mockCaption = document.getElementById('mockCaption');
+    const testVideo = document.getElementById('testVideo');
+
+    // Add track dynamically to simulate course players
+    try {
+      const track = testVideo.addTextTrack('subtitles', 'العربية', 'ar');
+      track.mode = 'showing';
+      track.addCue(new VTTCue(1, 4, 'أهلاً بكم في تعلم الذكاء الاصطناعي'));
+      track.addCue(new VTTCue(5, 8, 'تقدم IBM مهارات تقنية متقدمة'));
+      track.addCue(new VTTCue(9, 13, 'نتمنى لكم تجربة تعليمية ممتعة'));
+    } catch (e) {
+      console.warn('TextTrack API initialization note:', e);
+    }
+
+    document.getElementById('btnCue1').addEventListener('click', () => {
+      mockCaption.textContent = 'أهلاً بكم في الوحدة الأولى من مهارات IBM SkillsBuild';
+    });
+
+    document.getElementById('btnCue2').addEventListener('click', () => {
+      mockCaption.textContent = 'سنتعلم اليوم كيفية بناء التطبيقات الذكية السحابية';
+    });
+
+    document.getElementById('btnCue3').addEventListener('click', () => {
+      mockCaption.textContent = 'شكراً لمتابعتكم، نلتقي في الدرس القادم';
+    });
+
+    document.getElementById('btnToggleVideo').addEventListener('click', () => {
+      if (testVideo.paused) {
+        testVideo.play();
+      } else {
+        testVideo.pause();
+      }
+    });
+  </script>
+</body>
+</html>

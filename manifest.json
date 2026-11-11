@@ -1,0 +1,58 @@
+{
+  "manifest_version": 3,
+  "name": "CaptionVoice",
+  "version": "1.3.0",
+  "description": "Real-time Arabic closed-caption text-to-speech for online educational videos using native SpeechSynthesis.",
+  "permissions": [
+    "activeTab",
+    "scripting",
+    "storage"
+  ],
+  "host_permissions": [],
+  "background": {
+    "service_worker": "background.mjs",
+    "type": "module"
+  },
+  "icons": {
+    "16": "icons/icon16.png",
+    "32": "icons/icon32.png",
+    "48": "icons/icon48.png",
+    "128": "icons/icon128.png"
+  },
+  "content_scripts": [
+    {
+      "matches": [
+        "https://*/*",
+        "http://*/*"
+      ],
+      "match_about_blank": true,
+      "all_frames": true,
+      "run_at": "document_start",
+      "js": [
+        "content/content.bundle.js"
+      ]
+    }
+  ],
+  "action": {
+    "default_title": "CaptionVoice",
+    "default_popup": "popup/popup.html",
+    "default_icon": {
+      "16": "icons/icon16.png",
+      "32": "icons/icon32.png",
+      "48": "icons/icon48.png"
+    }
+  },
+  "web_accessible_resources": [
+    {
+      "resources": [
+        "content/content.bundle.js"
+      ],
+      "matches": [
+        "<all_urls>"
+      ]
+    }
+  ],
+  "content_security_policy": {
+    "extension_pages": "script-src 'self'; object-src 'self'"
+  }
+}

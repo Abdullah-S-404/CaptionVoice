@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>CaptionVoice</title>
+  <link rel="stylesheet" href="popup.css">
+</head>
+<body>
+  <div class="app">
+    <header class="header">
+      <div class="brand">
+        <img src="../icons/icon32.png" alt="" class="brand-icon" width="28" height="28">
+        <div class="brand-text">
+          <div class="brand-name">CaptionVoice</div>
+          <div class="brand-sub" id="txtSubtitle">قارئ الترجمة العربية</div>
+        </div>
+      </div>
+      <div class="header-actions">
+        <button id="btnThemeToggle" class="btn-icon" title="تبديل الثيم">🌙</button>
+        <button id="btnLangToggle" class="btn-icon" title="تغيير اللغة">EN</button>
+        <label class="switch" title="تفعيل / إيقاف">
+          <input type="checkbox" id="toggleEnabled">
+          <span class="slider"></span>
+        </label>
+      </div>
+    </header>
+
+    <section class="live">
+      <div class="live-label">
+        <span class="dot" id="statusDot"></span>
+        <span id="statusText">جاهز</span>
+      </div>
+      <div class="live-text" id="liveCaptionText">في انتظار الترجمة العربية...</div>
+    </section>
+
+    <section class="controls">
+      <div class="field">
+        <label for="selectVoice" id="lblVoice">الصوت المستخدم</label>
+        <select id="selectVoice"><option value="">الصوت الافتراضي</option></select>
+      </div>
+      <div class="row">
+        <div class="field">
+          <label for="rangeRate">
+            <span id="lblRate">السرعة</span>
+            <span id="rateValue">1.25×</span>
+          </label>
+          <input type="range" id="rangeRate" min="0.5" max="2.5" step="0.05" value="1.25">
+        </div>
+        <div class="field">
+          <label for="rangePitch">
+            <span id="lblPitch">طبقة الصوت</span>
+            <span id="pitchValue">1.0</span>
+          </label>
+          <input type="range" id="rangePitch" min="0" max="2" step="0.1" value="1">
+        </div>
+      </div>
+      <div class="field">
+        <label for="rangeVolume">
+          <span id="lblVolume">مستوى الصوت</span>
+          <span id="volumeValue">100%</span>
+        </label>
+        <input type="range" id="rangeVolume" min="0" max="1" step="0.05" value="1">
+      </div>
+      <div class="field sync-row">
+        <label class="checkbox-label">
+          <input type="checkbox" id="toggleAutoSync" checked>
+          <span id="txtAutoSync">مزامنة الإيقاف والاستئناف مع الفيديو</span>
+        </label>
+      </div>
+      <div class="actions">
+        <button id="btnTest" class="btn btn-primary">تجربة الصوت</button>
+        <button id="btnStop" class="btn">إيقاف</button>
+        <button id="btnToggleDiag" class="btn">فحص</button>
+      </div>
+    </section>
+
+    <section class="diag" id="diagContent">
+      <div class="diag-head">
+        <span id="txtDiagTitle">التشخيص</span>
+        <div class="diag-actions">
+          <button id="btnRunDiag" class="btn-link">فحص الصفحة</button>
+          <button id="btnCopyDiag" class="btn-link" disabled>نسخ التقرير</button>
+        </div>
+      </div>
+      <pre id="diagOutput"></pre>
+    </section>
+  </div>
+  <script src="popup.js"></script>
+</body>
+</html>
